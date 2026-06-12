@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Agentic AI - Simple Guide for Everyone</title>
+  <style>
+    @page { size: A4; margin: 14mm; }
+    * { box-sizing: border-box; }
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      line-height: 1.54;
+      color: #1f2937;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 18px;
+      font-size: 13px;
+      background: linear-gradient(180deg, #f7fbff 0, #ffffff 210px);
+    }
+    h1 {
+      color: #0f3d7a;
+      border-bottom: 4px solid #d4af37;
+      padding-bottom: 10px;
+      font-size: 30px;
+      margin-bottom: 8px;
+      letter-spacing: 0;
+    }
+    h2 {
+      color: #0f3d7a;
+      margin-top: 22px;
+      margin-bottom: 8px;
+      font-size: 18px;
+      page-break-after: avoid;
+      border-bottom: 1px solid #e5e7eb;
+      padding-bottom: 4px;
+    }
+    h3 { color: #111827; margin: 11px 0 4px; font-size: 13.5px; page-break-after: avoid; }
+    p { margin: 6px 0; }
+    .subtitle { color: #5f6368; font-size: 15px; margin-bottom: 16px; }
+    .author-card {
+      display: grid;
+      grid-template-columns: 108px 1fr;
+      gap: 16px;
+      align-items: center;
+      background: linear-gradient(135deg, #ffffff 0%, #eef5ff 100%);
+      border: 1px solid #c9d7f0;
+      border-left: 5px solid #d4af37;
+      border-radius: 10px;
+      padding: 13px 16px;
+      margin: 16px 0 16px;
+      box-shadow: 0 2px 10px rgba(15, 61, 122, 0.08);
+    }
+    .author-photo {
+      width: 104px;
+      height: 104px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #ffffff;
+      box-shadow: 0 1px 6px rgba(23, 78, 166, 0.22);
+    }
+    .author-name {
+      margin: 0 0 3px;
+      color: #0f3d7a;
+      font-size: 18px;
+      font-weight: 700;
+    }
+    .author-role {
+      margin: 0 0 8px;
+      color: #3f3f46;
+      font-weight: 600;
+      font-size: 13.5px;
+    }
+    .author-bio {
+      margin: 0;
+      color: #3f3f46;
+      font-size: 12.5px;
+      line-height: 1.55;
+    }
+    .box {
+      background: #f0f7ff;
+      border: 1px solid #c9d7f0;
+      border-left: 5px solid #0f3d7a;
+      padding: 10px 14px;
+      margin: 12px 0;
+      border-radius: 7px;
+    }
+    .warning {
+      background: #fff8e1;
+      border: 1px solid #f4d06f;
+      border-left: 5px solid #d4af37;
+      padding: 10px 14px;
+      margin: 12px 0;
+      border-radius: 7px;
+    }
+    table { width: 100%; border-collapse: collapse; margin: 11px 0; font-size: 12px; page-break-inside: auto; }
+    th, td { border: 1px solid #c9d2e3; padding: 7px 9px; text-align: left; vertical-align: top; }
+    th { background: #e8f0fe; color: #0f3d7a; }
+    code, pre {
+      font-family: Consolas, monospace;
+      font-size: 11px;
+    }
+    code { background: #f3f6fb; padding: 1px 3px; border-radius: 3px; }
+    pre {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-left: 4px solid #d4af37;
+      padding: 10px 12px;
+      overflow-x: auto;
+      border-radius: 6px;
+      line-height: 1.38;
+      white-space: pre-wrap;
+      page-break-inside: auto;
+      break-inside: auto;
+    }
+    .code-section { page-break-inside: auto; break-inside: auto; }
+    .code-title {
+      background: #e8f0fe;
+      border: 1px solid #c9d7f0;
+      border-bottom: 0;
+      padding: 10px 14px;
+      margin: 12px 0 0;
+      border-radius: 6px 6px 0 0;
+      font-weight: 700;
+      color: #0f3d7a;
+    }
+    .code-title + pre { margin-top: 0; border-radius: 0 0 6px 6px; }
+    ul, ol { padding-left: 24px; }
+    li { margin-bottom: 3px; }
+    .page-break { display: none; }
+    .footer {
+      margin-top: 18px;
+      font-size: 11.5px;
+      color: #6b7280;
+      text-align: center;
+      border-top: 1px solid #e5e7eb;
+      padding-top: 8px;
+    }
+    .diagram {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-left: 4px solid #d4af37;
+      border-radius: 6px;
+      padding: 10px 12px;
+      font-family: Consolas, monospace;
+      font-size: 11px;
+      white-space: pre-wrap;
+      line-height: 1.38;
+      margin: 10px 0;
+    }
+    @media print {
+      body { max-width: none; padding: 0; }
+      .author-card, .box, .warning { break-inside: avoid; page-break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+
+<h1>Agentic AI - Simple Guide for Everyone</h1>
+<p class="subtitle">Simple spoken English. Made for students, beginners, and interview preparation.<br>
+Demo app: C# Console + Google Gemini + SQL Server.</p>
+
+<div class="author-card">
+  <img class="author-photo" src="assets/chakrapani-upadhyaya.png" alt="Chakrapani Upadhyaya">
+  <div>
+    <p class="author-name">Created by Chakrapani Upadhyaya</p>
+    <p class="author-role">Enterprise-focused Staff Software Engineer and Solutions Architect</p>
+    <p class="author-bio">
+      Chakrapani Upadhyaya has 15+ years of experience architecting, modernizing, and scaling high-throughput distributed systems across governance, compliance, FinTech, and e-commerce domains. He is an expert in the .NET ecosystem (C#), cloud architecture (AWS/Azure), and modern frontend engineering (React/Next.js). He has led high-performing engineering teams, executed complex cloud transformations, and pioneered the integration of Generative AI, Autonomous Agents, and Retrieval-Augmented Generation (RAG) into enterprise risk and compliance workflows.
+    </p>
+  </div>
+</div>
+
+<div class="box">
+  <strong>Who can read this?</strong> Anyone. You do not need to be an engineer. Think of this guide like a friend explaining the topic before an interview or class presentation.
+</div>
+
+<h2>1. What Is Agentic AI?</h2>
+
+<p><strong>Agentic AI</strong> means AI that can do a job step by step.</p>
+
+<p>A normal chatbot mostly gives text answers. An agentic AI can also use tools. For example, it can check a database, read a file, call an API, search a system, or run a small workflow.</p>
+
+<p>Simple example:</p>
+<div class="diagram">You ask:
+"How many gold customers do we have?"
+
+A normal chatbot may guess.
+
+An Agentic AI says:
+1. I need real customer data.
+2. I will check the database.
+3. I will run a safe SQL query.
+4. I will read the result.
+5. I will answer the user in simple words.</div>
+
+<p>So the short meaning is:</p>
+
+<div class="box">
+  <strong>Agentic AI = AI brain + tools + step-by-step loop + safety rules.</strong>
+</div>
+
+<h2>2. Normal AI vs Agentic AI</h2>
+
+<table>
+  <tr>
+    <th>Normal AI</th>
+    <th>Agentic AI</th>
+  </tr>
+  <tr>
+    <td>Mostly talks and answers from what it already knows.</td>
+    <td>Can talk and also take actions using tools.</td>
+  </tr>
+  <tr>
+    <td>May guess when it does not have data.</td>
+    <td>Can go and fetch data before answering.</td>
+  </tr>
+  <tr>
+    <td>Usually one question gives one answer.</td>
+    <td>Works in steps until the job is done.</td>
+  </tr>
+  <tr>
+    <td>Cannot safely query your SQL Server by itself.</td>
+    <td>Can ask the app to run a safe read-only SQL query.</td>
+  </tr>
+</table>
+
+<h2>3. Easy Real-Life Example</h2>
+
+<p>Imagine you ask a human assistant:</p>
+<p><em>"Please tell me total sales for this month."</em></p>
+
+<p>A good assistant will not guess. They will open the sales system, check the numbers, and then tell you the answer.</p>
+
+<p>Agentic AI works in a similar way:</p>
+<ol>
+  <li>Understand the request.</li>
+  <li>Decide what information is needed.</li>
+  <li>Use a tool to get that information.</li>
+  <li>Check the result.</li>
+  <li>Answer in clear language.</li>
+</ol>
+
+<h2>4. Main Parts Of Agentic AI</h2>
+
+<h3>Part 1: Brain</h3>
+<p>The brain is the AI model. Examples are Google Gemini, ChatGPT, Claude, and other LLMs. LLM means Large Language Model. It reads text and decides what to do next.</p>
+
+<h3>Part 2: Tools</h3>
+<p>Tools are things the AI can use. In this demo, the main tool is SQL Server. The AI does not directly touch the database. It asks our C# app to run a safe query.</p>
+
+<h3>Part 3: Memory</h3>
+<p>Memory means remembering what happened before. In our demo, the agent remembers previous steps in the same question. For example, it remembers what SQL query ran and what result came back.</p>
+
+<h3>Part 4: Planning</h3>
+<p>Planning means breaking the work into small steps. The agent thinks: "Do I need data? Which table should I use? Do I have enough information to answer?"</p>
+
+<h3>Part 5: Safety Rules</h3>
+<p>Safety rules stop the agent from doing dangerous things. Our demo only allows SELECT queries. That means the agent can read data, but it cannot delete, update, create, or drop anything.</p>
+
+<h2>5. How Agentic AI Works: The Loop</h2>
+
+<p>The most important idea is the loop. The loop is also called the ReAct pattern. ReAct means Reason + Act.</p>
+
+<div class="diagram">1. Perceive  -> Read the user's question
+2. Reason    -> Think about the next useful step
+3. Act       -> Use a tool, like SQL Server
+4. Observe   -> Read the tool result
+5. Repeat    -> Continue until answer is ready or max steps are reached</div>
+
+<p>Example:</p>
+
+<div class="diagram">User:
+"How many customers do we have?"
+
+Step 1:
+Thought: I need to count customers from the Customers table.
+Action: run_sql
+Input: SELECT COUNT(*) AS TotalCustomers FROM Customers
+Observation: TotalCustomers = 8
+
+Step 2:
+Thought: I have the number now.
+Action: answer_user
+Input: You have 8 customers.</div>
+
+<h2>6. What Happens When The User Sends A Request?</h2>
+
+<p>Here is the full journey in the AgenticAIDemo app.</p>
+
+<ol>
+  <li>The user types a question in the console.</li>
+  <li><code>Program.cs</code> reads <code>appsettings.json</code>.</li>
+  <li>The app loads the Gemini API key, model name, SQL Server connection string, and agent rules.</li>
+  <li>The app checks if SQL Server is reachable.</li>
+  <li>If SQL Server is working, the app creates the services.</li>
+  <li>The app decides which brain to use: Gemini or Local Fallback.</li>
+  <li><code>AgentService</code> starts the loop.</li>
+  <li>The brain chooses one action: <code>run_sql</code> or <code>answer_user</code>.</li>
+  <li>If action is <code>run_sql</code>, <code>SqlServerService</code> runs a safe SELECT query.</li>
+  <li>The SQL result is sent back to the brain.</li>
+  <li>When the brain has enough information, it sends the final answer.</li>
+  <li>The console prints all steps and the final answer.</li>
+</ol>
+
+<h2>7. What Happens When Data Is Not Available Locally?</h2>
+
+<p>This is very important because real AI apps must be honest when data is missing.</p>
+
+<h3>Case 1: Gemini API key is not available</h3>
+<p>The app uses <strong>Local Fallback mode</strong> if <code>UseLocalFallback</code> is true.</p>
+<ul>
+  <li>It does not call Google Gemini.</li>
+  <li>It does not need internet.</li>
+  <li>It uses simple keyword rules.</li>
+  <li>It still queries your local SQL Server.</li>
+  <li>It is less smart, but useful for learning.</li>
+</ul>
+
+<h3>Case 2: SQL Server is not running</h3>
+<p>The app stops at startup. It tells you to start SQL Server, run the setup SQL script, and check the connection string.</p>
+
+<h3>Case 3: Database tables are missing</h3>
+<p>The app may connect to SQL Server, but it cannot find the expected <code>Customers</code> and <code>Orders</code> tables. You must run <code>Scripts/SetupDatabase.sql</code>.</p>
+
+<h3>Case 4: User asks for data that does not exist</h3>
+<p>Example: the user asks for Platinum customers, but the database has only Gold, Silver, and Bronze customers.</p>
+<p>The query may return no rows. The correct answer is: "No matching data was found." The agent should not invent fake data.</p>
+
+<h3>Case 5: Internet is not available</h3>
+<p>If Gemini is selected but internet is down, the Gemini API call fails. The local database may still be fine. To continue learning, use Local Fallback mode.</p>
+
+<h3>Case 6: Local Fallback does not understand the question</h3>
+<p>Local Fallback is simple. It looks for words like "gold", "sales", "city", "order", and "how many customers". If your question is complex, Gemini mode works better.</p>
+
+<div class="page-break"></div>
+
+<h2>8. What Is RAG?</h2>
+
+<p>RAG means Retrieval-Augmented Generation.</p>
+
+<p>Simple meaning:</p>
+<div class="box">
+  First fetch real information. Then ask AI to answer using that information.
+</div>
+
+<p>In this demo, SQL Server is the place where real information lives. The agent gets real rows from SQL Server before answering. This reduces guessing.</p>
+
+<h2>9. What Is An API Key?</h2>
+
+<p>An API key is like a password for your app. It lets your C# app call Google Gemini.</p>
+
+<ol>
+  <li>Go to Google AI Studio.</li>
+  <li>Create or copy an API key.</li>
+  <li>Paste it into <code>appsettings.json</code>.</li>
+  <li>Keep it private.</li>
+</ol>
+
+<div class="warning">
+  <strong>Important:</strong> Do not share your real API key. Do not put real keys or database passwords in public GitHub code.
+</div>
+
+<h2>10. What The Demo App Does</h2>
+
+<p><strong>AgenticAIDemo</strong> is a C# console app. It lets you ask normal English questions about a small shop database.</p>
+
+<p>The database has two main tables:</p>
+<ul>
+  <li><strong>Customers</strong>: customer name, city, and membership level.</li>
+  <li><strong>Orders</strong>: products, amount, order date, and related customer.</li>
+</ul>
+
+<p>Example questions:</p>
+<ul>
+  <li>How many customers do we have?</li>
+  <li>Who are our gold members?</li>
+  <li>What is the total sales amount?</li>
+  <li>Which city has the most customers?</li>
+  <li>Show recent orders.</li>
+</ul>
+
+<h2>11. Project Folder Structure</h2>
+
+<div class="diagram">Interview/
+  README.md
+  docs/
+    AgenticAI-Simple-Guide.html
+    AgenticAI-Simple-Guide.pdf
+  AgenticAIDemo/
+    AgenticAIDemo.csproj
+    Program.cs
+    appsettings.json
+    Models/
+      AppSettings.cs
+      AgentModels.cs
+    Services/
+      AgentService.cs
+      GeminiService.cs
+      SqlServerService.cs
+      LocalFallbackService.cs
+    Scripts/
+      SetupDatabase.sql</div>
+
+<h2>12. Step By Step: Create The AgenticAIDemo App</h2>
+
+<h3>Step 1: Install the required tools</h3>
+<table>
+  <tr><th>Tool</th><th>Why you need it</th></tr>
+  <tr><td>.NET 8 SDK</td><td>To create and run the C# console app.</td></tr>
+  <tr><td>SQL Server Express or LocalDB</td><td>To store sample customer and order data.</td></tr>
+  <tr><td>SQL Server Management Studio (SSMS)</td><td>To run the database setup script easily.</td></tr>
+  <tr><td>Gemini API key</td><td>Optional. Needed only if you want the online AI brain.</td></tr>
+</table>
+
+<h3>Step 2: Create the console project</h3>
+<pre>mkdir AgenticAIDemo
+cd AgenticAIDemo
+dotnet new console</pre>
+
+<p>If you create the project from the parent folder, you can also use:</p>
+<pre>dotnet new console -n AgenticAIDemo</pre>
+
+<h3>Step 3: Add the NuGet packages</h3>
+<pre>dotnet add package Microsoft.Data.SqlClient
+dotnet add package Microsoft.Extensions.Configuration.Json
+dotnet add package Microsoft.Extensions.Configuration.Binder
+dotnet add package Newtonsoft.Json</pre>
+
+<table>
+  <tr><th>Package</th><th>Simple purpose</th></tr>
+  <tr><td>Microsoft.Data.SqlClient</td><td>Talks to SQL Server.</td></tr>
+  <tr><td>Microsoft.Extensions.Configuration.Json</td><td>Reads <code>appsettings.json</code>.</td></tr>
+  <tr><td>Microsoft.Extensions.Configuration.Binder</td><td>Maps JSON settings into C# classes.</td></tr>
+  <tr><td>Newtonsoft.Json</td><td>Builds and reads JSON for Gemini.</td></tr>
+</table>
+
+<h3>Step 4: Create the database</h3>
+<ol>
+  <li>Open SSMS.</li>
+  <li>Connect to SQL Server.</li>
+  <li>Open <code>AgenticAIDemo/Scripts/SetupDatabase.sql</code>.</li>
+  <li>Click Execute.</li>
+</ol>
+
+<p>This script creates the <code>AgenticAIDemo</code> database, the <code>Customers</code> table, the <code>Orders</code> table, and sample data.</p>
+
+<h3>Step 5: Create Models</h3>
+
+<p>Create a folder named <code>Models</code>. Models are simple C# classes that describe the shape of data used in the app.</p>
+
+<table>
+  <tr><th>File</th><th>What it contains</th></tr>
+  <tr><td>Models/AppSettings.cs</td><td>Settings classes for Gemini, SQL Server, and Agent rules.</td></tr>
+  <tr><td>Models/AgentModels.cs</td><td>Classes for one agent step, final response, and Gemini decision.</td></tr>
+</table>
+
+<div class="code-section">
+<div class="code-title">Full code: Models/AppSettings.cs</div>
+<pre>public sealed class AppSettings
+{
+    public GeminiSettings Gemini { get; set; } = new();
+    public SqlServerSettings SqlServer { get; set; } = new();
+    public AgentSettings Agent { get; set; } = new();
+}
+
+public sealed class GeminiSettings
+{
+    public string ApiKey { get; set; } = string.Empty;
+    public string Model { get; set; } = "gemini-2.5-flash";
+}
+
+public sealed class SqlServerSettings
+{
+    public string ConnectionString { get; set; } = string.Empty;
+}
+
+public sealed class AgentSettings
+{
+    public int MaxSteps { get; set; } = 5;
+    public bool UseLocalFallback { get; set; } = true;
+}</pre>
+</div>
+
+<div class="code-section">
+<div class="code-title">Full code: Models/AgentModels.cs</div>
+<pre>public sealed record AgentStep
+{
+    public int StepNumber { get; init; }
+    public string Thought { get; init; } = string.Empty;
+    public string? Action { get; init; }
+    public string? ActionInput { get; init; }
+    public string? Observation { get; init; }
+}
+
+public sealed class AgentResponse
+{
+    public string FinalAnswer { get; init; } = string.Empty;
+    public List&lt;AgentStep&gt; Steps { get; init; } = [];
+    public bool UsedDatabase { get; init; }
+}
+
+public sealed class GeminiDecision
+{
+    public string Thought { get; init; } = string.Empty;
+    public string Action { get; init; } = "answer_user";
+    public string ActionInput { get; init; } = string.Empty;
+}</pre>
+</div>
+
+<h3>Step 6: Create Services</h3>
+
+<p>Create a folder named <code>Services</code>. Services are classes that do actual work.</p>
+
+<table>
+  <tr><th>Service file</th><th>Simple job</th></tr>
+  <tr><td>SqlServerService.cs</td><td>Connects to SQL Server, reads schema, and runs safe SELECT queries.</td></tr>
+  <tr><td>GeminiService.cs</td><td>Sends the question and previous steps to Google Gemini.</td></tr>
+  <tr><td>LocalFallbackService.cs</td><td>Backup brain when there is no Gemini API key.</td></tr>
+  <tr><td>AgentService.cs</td><td>The main boss. Runs the agent loop.</td></tr>
+</table>
+
+<h3>Step 7: Build SqlServerService.cs</h3>
+<p>This service is the database tool.</p>
+<ul>
+  <li><code>TestConnectionAsync</code> checks if SQL Server is reachable.</li>
+  <li><code>GetSchemaDescriptionAsync</code> tells the AI what tables and columns exist.</li>
+  <li><code>ExecuteSafeQueryAsync</code> runs a query and returns the rows as text.</li>
+  <li><code>IsReadOnlySelectQuery</code> blocks unsafe SQL.</li>
+</ul>
+
+<p>Safety rule:</p>
+<pre>Only SELECT queries are allowed.
+INSERT, UPDATE, DELETE, DROP, ALTER, CREATE, EXEC, and similar commands are blocked.</pre>
+
+<h3>Step 8: Build GeminiService.cs</h3>
+<p>This service is the online AI brain.</p>
+<ul>
+  <li>It creates a prompt for Gemini.</li>
+  <li>It includes the user question.</li>
+  <li>It includes the database schema.</li>
+  <li>It includes previous agent steps.</li>
+  <li>It asks Gemini to return strict JSON.</li>
+</ul>
+
+<p>Gemini must choose one of these actions:</p>
+<pre>{
+  "thought": "what the AI is thinking",
+  "action": "run_sql or answer_user",
+  "actionInput": "SQL query or final answer"
+}</pre>
+
+<h3>Step 9: Build LocalFallbackService.cs</h3>
+<p>This service is a simple offline brain.</p>
+<ul>
+  <li>If the question contains "gold", it queries gold customers.</li>
+  <li>If the question contains "sales" or "total", it queries total sales.</li>
+  <li>If the question contains "city", it groups customers by city.</li>
+  <li>If the question contains "order", it shows recent orders.</li>
+  <li>If it does not understand, it runs a general sample query.</li>
+</ul>
+
+<p>This is not as intelligent as Gemini, but it helps you understand the agent loop without internet.</p>
+
+<h3>Step 10: Build AgentService.cs</h3>
+<p>This is the heart of the app. It runs the ReAct loop.</p>
+
+<div class="diagram">For each step from 1 to MaxSteps:
+  1. Ask Gemini or Local Fallback: What should we do next?
+  2. If action is run_sql:
+       Run SQL using SqlServerService.
+       Save the result as observation.
+       Continue the loop.
+  3. If action is answer_user:
+       Save final answer.
+       Stop the loop.
+  4. If action is unknown:
+       Stop safely.
+
+If max steps are reached:
+  Tell the user to try a simpler question.</div>
+
+<h3>Step 11: Create appsettings.json</h3>
+<p>This file keeps app settings in one place.</p>
+
+<pre>{
+  "Gemini": {
+    "ApiKey": "YOUR_GEMINI_API_KEY_HERE",
+    "Model": "gemini-2.5-flash"
+  },
+  "SqlServer": {
+    "ConnectionString": "Server=localhost;Database=AgenticAIDemo;Trusted_Connection=True;TrustServerCertificate=True;"
+  },
+  "Agent": {
+    "MaxSteps": 5,
+    "UseLocalFallback": true
+  }
+}</pre>
+
+<table>
+  <tr><th>Setting</th><th>Simple meaning</th></tr>
+  <tr><td>Gemini.ApiKey</td><td>Your private Gemini key. Use a placeholder if you do not have one.</td></tr>
+  <tr><td>Gemini.Model</td><td>The Gemini model name used by the app.</td></tr>
+  <tr><td>SqlServer.ConnectionString</td><td>How the app connects to your local SQL Server database.</td></tr>
+  <tr><td>Agent.MaxSteps</td><td>Maximum loop steps. This demo uses 5.</td></tr>
+  <tr><td>Agent.UseLocalFallback</td><td>If true, app can run with the simple local brain when Gemini key is missing.</td></tr>
+</table>
+
+<h3>Step 12: Update AgenticAIDemo.csproj</h3>
+<p>The project file should target .NET 8 and copy <code>appsettings.json</code> to the output folder when the app builds.</p>
+
+<pre>&lt;Project Sdk="Microsoft.NET.Sdk"&gt;
+  &lt;PropertyGroup&gt;
+    &lt;OutputType&gt;Exe&lt;/OutputType&gt;
+    &lt;TargetFramework&gt;net8.0&lt;/TargetFramework&gt;
+    &lt;ImplicitUsings&gt;enable&lt;/ImplicitUsings&gt;
+    &lt;Nullable&gt;enable&lt;/Nullable&gt;
+  &lt;/PropertyGroup&gt;
+
+  &lt;ItemGroup&gt;
+    &lt;PackageReference Include="Microsoft.Data.SqlClient" Version="..." /&gt;
+    &lt;PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="..." /&gt;
+    &lt;PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="..." /&gt;
+    &lt;PackageReference Include="Newtonsoft.Json" Version="..." /&gt;
+  &lt;/ItemGroup&gt;
+
+  &lt;ItemGroup&gt;
+    &lt;None Update="appsettings.json"&gt;
+      &lt;CopyToOutputDirectory&gt;PreserveNewest&lt;/CopyToOutputDirectory&gt;
+    &lt;/None&gt;
+  &lt;/ItemGroup&gt;
+&lt;/Project&gt;</pre>
+
+<h3>Step 13: Create Program.cs</h3>
+<p><code>Program.cs</code> is the entry point. It is the first file that runs.</p>
+
+<p>It does these jobs:</p>
+<ol>
+  <li>Prints the welcome message.</li>
+  <li>Loads <code>appsettings.json</code>.</li>
+  <li>Creates <code>SqlServerService</code>.</li>
+  <li>Tests the database connection.</li>
+  <li>Creates <code>GeminiService</code> if API key is available.</li>
+  <li>Creates <code>LocalFallbackService</code>.</li>
+  <li>Creates <code>AgentService</code>.</li>
+  <li>Starts a chat loop.</li>
+  <li>Handles commands like <code>help</code>, <code>schema</code>, and <code>exit</code>.</li>
+  <li>Prints every agent step and final answer.</li>
+</ol>
+
+<p>Simple flow:</p>
+<div class="diagram">Start app
+Load settings
+Connect to SQL Server
+Choose Gemini or Local Fallback
+Create AgentService
+Ask user for a question
+Run agent
+Print steps
+Print final answer
+Repeat until user types exit</div>
+
+<h3>Step 14: Run the app</h3>
+<pre>cd AgenticAIDemo
+dotnet run</pre>
+
+<p>If SQL Server is working, you will see a success message. If Gemini key is missing and fallback is true, you will see Local Fallback mode.</p>
+
+<h3>Step 15: Try questions</h3>
+<ul>
+  <li>How many customers do we have?</li>
+  <li>Who are our gold members?</li>
+  <li>What is the total sales amount?</li>
+  <li>Which city has the most customers?</li>
+  <li>Show recent orders.</li>
+</ul>
+
+<p>Useful commands:</p>
+<ul>
+  <li><code>help</code>: show sample questions.</li>
+  <li><code>schema</code>: show database table details.</li>
+  <li><code>exit</code>: close the app.</li>
+</ul>
+
+<div class="page-break"></div>
+
+<h2>13. What Each File Does</h2>
+
+<table>
+  <tr><th>File</th><th>Simple explanation</th></tr>
+  <tr><td>AgenticAIDemo.csproj</td><td>The project file. It stores .NET version and package references.</td></tr>
+  <tr><td>Program.cs</td><td>Starts the app, loads settings, checks database, and runs the user chat loop.</td></tr>
+  <tr><td>appsettings.json</td><td>Stores Gemini key, model name, SQL connection string, and agent rules.</td></tr>
+  <tr><td>Models/AppSettings.cs</td><td>C# classes that match the settings JSON.</td></tr>
+  <tr><td>Models/AgentModels.cs</td><td>C# classes for agent steps, final response, and Gemini decisions.</td></tr>
+  <tr><td>Services/AgentService.cs</td><td>Runs the main agent loop.</td></tr>
+  <tr><td>Services/GeminiService.cs</td><td>Calls the Gemini API and reads the JSON reply.</td></tr>
+  <tr><td>Services/SqlServerService.cs</td><td>Connects to SQL Server and runs only safe SELECT queries.</td></tr>
+  <tr><td>Services/LocalFallbackService.cs</td><td>Simple backup brain based on keywords.</td></tr>
+  <tr><td>Scripts/SetupDatabase.sql</td><td>Creates the database, tables, and sample records.</td></tr>
+</table>
+
+<h2>14. Safety Rules In This Demo</h2>
+
+<table>
+  <tr><th>Safety rule</th><th>Why it matters</th></tr>
+  <tr><td>Only SELECT SQL</td><td>The agent can read data but cannot change or delete data.</td></tr>
+  <tr><td>MaxSteps = 5</td><td>The loop stops after 5 steps, so it does not run forever.</td></tr>
+  <tr><td>Show all steps</td><td>The user can see what the agent thought, did, and found.</td></tr>
+  <tr><td>Local fallback</td><td>The demo can still run when Gemini key is missing.</td></tr>
+  <tr><td>No fake data</td><td>If SQL returns no rows, the agent should say no data was found.</td></tr>
+</table>
+
+<h2>15. Simple Interview Answers</h2>
+
+<h3>Question: What is Agentic AI?</h3>
+<p><em>Agentic AI is AI that can work step by step. It understands the goal, plans the next step, uses tools like databases or APIs, checks the result, and then gives an answer.</em></p>
+
+<h3>Question: How is it different from a normal chatbot?</h3>
+<p><em>A normal chatbot mostly talks. An agentic AI can talk and also act. For example, it can query SQL Server and answer using real data.</em></p>
+
+<h3>Question: What is tool use?</h3>
+<p><em>Tool use means the AI asks the app to do something useful, like run a SQL query. The AI decides the action, but the app performs it safely.</em></p>
+
+<h3>Question: Why do we need guardrails?</h3>
+<p><em>Guardrails keep the AI safe. In this demo, the agent can only run SELECT queries, so it cannot delete or update data.</em></p>
+
+<h3>Question: What happens if the data is missing?</h3>
+<p><em>The agent should not guess. It should say that no matching data was found, or tell the user what setup is missing.</em></p>
+
+<h2>16. Glossary</h2>
+
+<table>
+  <tr><th>Word</th><th>Simple meaning</th></tr>
+  <tr><td>AI</td><td>Software that can understand or generate human-like text.</td></tr>
+  <tr><td>LLM</td><td>Large Language Model. The AI brain, like Gemini or ChatGPT.</td></tr>
+  <tr><td>Agent</td><td>AI that can use tools and work in steps.</td></tr>
+  <tr><td>Tool</td><td>Something the agent can use, like SQL Server.</td></tr>
+  <tr><td>ReAct</td><td>Reason, Act, Observe, and Repeat.</td></tr>
+  <tr><td>RAG</td><td>Fetch real information first, then answer using it.</td></tr>
+  <tr><td>API</td><td>A way for one software program to talk to another.</td></tr>
+  <tr><td>API key</td><td>A private key that lets your app use an online service.</td></tr>
+  <tr><td>SQL Server</td><td>A database system from Microsoft.</td></tr>
+  <tr><td>Schema</td><td>The list of tables and columns in a database.</td></tr>
+  <tr><td>Fallback</td><td>A backup option when the main option is missing.</td></tr>
+  <tr><td>Guardrails</td><td>Rules that keep the agent safe.</td></tr>
+  <tr><td>Hallucination</td><td>When AI says something false like it is true.</td></tr>
+</table>
+
+<h2>17. One Page Cheat Sheet</h2>
+
+<div class="box">
+  <strong>Agentic AI:</strong> AI that can plan, use tools, observe results, and answer.<br><br>
+  <strong>Main loop:</strong> Read request -> Think -> Act -> See result -> Repeat -> Answer.<br><br>
+  <strong>Demo brain:</strong> Google Gemini, or Local Fallback when no key is available.<br><br>
+  <strong>Demo tool:</strong> SQL Server database with Customers and Orders.<br><br>
+  <strong>Safety:</strong> Only SELECT queries, max 5 steps, visible logs.<br><br>
+  <strong>Interview line:</strong> I built a C# Agentic AI demo that uses Gemini and SQL Server to answer questions from real data using a safe ReAct loop.
+</div>
+
+<h2>18. Quick Study Plan</h2>
+
+<table>
+  <tr><th>Time</th><th>What to do</th></tr>
+  <tr><td>30 minutes</td><td>Read sections 1 to 7.</td></tr>
+  <tr><td>30 minutes</td><td>Run the app and try 5 questions.</td></tr>
+  <tr><td>30 minutes</td><td>Study the file-by-file explanation.</td></tr>
+  <tr><td>15 minutes</td><td>Practice the interview answers out loud.</td></tr>
+</table>
+
+<div class="footer">
+  Agentic AI Simple Guide - Created for interview preparation.<br>
+  Demo: C# Console + Google Gemini + SQL Server
+</div>
+
+</body>
+</html>

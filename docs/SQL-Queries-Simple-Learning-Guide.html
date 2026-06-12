@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SQL Server Queries - Simple Learning Guide</title>
+  <style>
+    @page { size: A4; margin: 14mm; }
+    * { box-sizing: border-box; }
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      line-height: 1.54;
+      color: #1f2937;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 18px;
+      font-size: 13px;
+      background:
+        linear-gradient(180deg, #f7fbff 0, #ffffff 210px);
+    }
+    h1 {
+      color: #0f3d7a;
+      border-bottom: 4px solid #d4af37;
+      padding-bottom: 10px;
+      margin-bottom: 8px;
+      font-size: 30px;
+      letter-spacing: 0;
+    }
+    h2 {
+      color: #0f3d7a;
+      margin-top: 22px;
+      margin-bottom: 8px;
+      font-size: 18px;
+      page-break-after: avoid;
+      border-bottom: 1px solid #e5e7eb;
+      padding-bottom: 4px;
+    }
+    h3 {
+      color: #111827;
+      margin: 11px 0 4px;
+      font-size: 13.5px;
+      page-break-after: avoid;
+    }
+    .subtitle {
+      color: #5f6368;
+      font-size: 15px;
+      margin-bottom: 16px;
+    }
+    .author-card {
+      display: grid;
+      grid-template-columns: 108px 1fr;
+      gap: 16px;
+      align-items: center;
+      background: linear-gradient(135deg, #ffffff 0%, #eef5ff 100%);
+      border: 1px solid #c9d7f0;
+      border-left: 5px solid #d4af37;
+      border-radius: 10px;
+      padding: 13px 16px;
+      margin: 16px 0 16px;
+      box-shadow: 0 2px 10px rgba(15, 61, 122, 0.08);
+    }
+    .author-photo {
+      width: 104px;
+      height: 104px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #ffffff;
+      box-shadow: 0 1px 6px rgba(23, 78, 166, 0.22);
+    }
+    .author-name {
+      margin: 0 0 3px;
+      color: #0f3d7a;
+      font-size: 18px;
+      font-weight: 700;
+    }
+    .author-role {
+      margin: 0 0 8px;
+      color: #3f3f46;
+      font-weight: 600;
+      font-size: 13.5px;
+    }
+    .author-bio {
+      margin: 0;
+      color: #3f3f46;
+      font-size: 12.5px;
+      line-height: 1.55;
+    }
+    .box {
+      background: #eef5ff;
+      border: 1px solid #c9d7f0;
+      border-left: 5px solid #0f3d7a;
+      padding: 10px 14px;
+      margin: 12px 0;
+      border-radius: 7px;
+    }
+    .note {
+      background: #fff8e1;
+      border: 1px solid #f4d06f;
+      border-left: 5px solid #d4af37;
+      padding: 10px 14px;
+      margin: 12px 0;
+      border-radius: 7px;
+    }
+    .concept {
+      border: 1px solid #d8e0ee;
+      border-left: 5px solid #0f3d7a;
+      border-radius: 8px;
+      padding: 10px 14px;
+      margin: 12px 0 16px;
+      background: #ffffff;
+      box-shadow: 0 1px 7px rgba(31, 41, 55, 0.05);
+      page-break-inside: auto;
+      break-inside: auto;
+    }
+    .label {
+      color: #0f3d7a;
+      font-weight: 700;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 11px 0;
+      font-size: 12px;
+      page-break-inside: auto;
+    }
+    th, td {
+      border: 1px solid #c9d2e3;
+      padding: 7px 9px;
+      text-align: left;
+      vertical-align: top;
+    }
+    th {
+      background: #e8f0fe;
+      color: #0f3d7a;
+    }
+    code, pre {
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 11px;
+    }
+    pre {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-left: 4px solid #d4af37;
+      border-radius: 6px;
+      padding: 10px 12px;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      line-height: 1.38;
+      page-break-inside: auto;
+      break-inside: auto;
+    }
+    ul, ol { padding-left: 23px; }
+    li { margin-bottom: 3px; }
+    p { margin: 6px 0; }
+    .page-break { display: none; }
+    .footer {
+      margin-top: 18px;
+      font-size: 11.5px;
+      color: #6b7280;
+      text-align: center;
+      border-top: 1px solid #e5e7eb;
+      padding-top: 8px;
+    }
+    @media print {
+      body { max-width: none; padding: 0; }
+      .author-card, .box, .note { break-inside: avoid; page-break-inside: avoid; }
+      .concept { box-shadow: none; }
+    }
+  </style>
+</head>
+<body>
+
+<h1>SQL Server Queries - Simple Learning Guide</h1>
+<p class="subtitle">Beginner-friendly notes based on your SQL script. Each topic explains definition, why we use it, what happens, example, and simple explanation.</p>
+
+<div class="author-card">
+  <img class="author-photo" src="assets/chakrapani-upadhyaya.png" alt="Chakrapani Upadhyaya">
+  <div>
+    <p class="author-name">Created by Chakrapani Upadhyaya</p>
+    <p class="author-role">Enterprise-focused Staff Software Engineer and Solutions Architect</p>
+    <p class="author-bio">
+      Chakrapani Upadhyaya has 15+ years of experience architecting, modernizing, and scaling high-throughput distributed systems across governance, compliance, FinTech, and e-commerce domains. He is an expert in the .NET ecosystem (C#), cloud architecture (AWS/Azure), and modern frontend engineering (React/Next.js). He has led high-performing engineering teams, executed complex cloud transformations, and pioneered the integration of Generative AI, Autonomous Agents, and Retrieval-Augmented Generation (RAG) into enterprise risk and compliance workflows to improve operational efficiency and automated decision-making.
+    </p>
+  </div>
+</div>
+
+<div class="box">
+  <strong>Goal of this document:</strong> Learn important SQL Server concepts using one small employee database. This guide is written in simple spoken English so non-engineering students can also understand.
+</div>
+
+<h2>1. Full Learning Path</h2>
+<p>Your script teaches these SQL Server topics:</p>
+<ol>
+  <li>Create and select a database.</li>
+  <li>Drop an old table if it already exists.</li>
+  <li>Create a table with primary key and unique key.</li>
+  <li>Insert sample employee data.</li>
+  <li>Read data using <code>SELECT</code>.</li>
+  <li>Use self join to show employee and manager details from the same table.</li>
+  <li>Use window functions: <code>ROW_NUMBER()</code>, <code>RANK()</code>, and <code>DENSE_RANK()</code>.</li>
+  <li>Use CTE to filter ranked data.</li>
+  <li>Use cross join to create all combinations.</li>
+  <li>Remove duplicate records using CTE and <code>ROW_NUMBER()</code>.</li>
+  <li>Understand clustered and nonclustered indexes.</li>
+  <li>Compare table scan and index seek using <code>SET STATISTICS TIME</code>.</li>
+</ol>
+
+<h2>2. Database: Create And Use</h2>
+
+<div class="concept">
+  <h3>Definition</h3>
+  <p>A database is a container where tables and data are stored. Think of it like a folder. Inside that folder, we keep tables like <code>Employee</code>, <code>Bonus</code>, <code>Books</code>, and <code>City</code>.</p>
+
+  <h3>Why We Use It</h3>
+  <p>We create a separate database so our learning tables stay in one place and do not mix with other project data.</p>
+
+  <h3>Example</h3>
+  <pre>CREATE DATABASE MyLearningDB;
+
+USE MyLearningDB;</pre>
+
+  <h3>Explanation</h3>
+  <p><code>CREATE DATABASE MyLearningDB</code> creates a new database. <code>USE MyLearningDB</code> tells SQL Server: "Run the next queries inside this database."</p>
+</div>
+
+<h2>3. OBJECT_ID And DROP TABLE</h2>
+
+<div class="concept">
+  <h3>Definition</h3>
+  <p><code>OBJECT_ID</code> checks whether a database object exists. A table is also a database object. <code>DROP TABLE</code> deletes a table completely.</p>
+
+  <h3>Why We Use It</h3>
+  <p>If you run <code>CREATE TABLE Employee</code> again when the table already exists, SQL Server gives an error. So first we check and drop the old table.</p>
+
+  <h3>Example</h3>
+  <pre>IF OBJECT_ID('dbo.Employee', 'U') IS NOT NULL
+BEGIN
+    DROP TABLE Employee;
+END
+GO</pre>
+
+  <h3>Explanation</h3>
+  <ul>
+    <li><code>dbo.Employee</code> means the Employee table under the dbo schema.</li>
+    <li><code>'U'</code> means user table.</li>
+    <li>If the table exists, SQL Server drops it.</li>
+    <li><code>GO</code> tells SQL Server Management Studio to finish this batch and start a new one.</li>
+  </ul>
+
+  <div class="note">
+    <strong>Careful:</strong> <code>DROP TABLE</code> removes the table and all data inside it. Use it only when you really want to recreate the table.
+  </div>
+</div>
+
+<h2>4. Create Table Employee</h2>
+
+<div class="concept">
+  <h3>Definition</h3>
+  <p><code>CREATE TABLE</code> creates a new table. A table is like an Excel sheet. It has columns and rows.</p>
+
+  <h3>Why We Use It</h3>
+  <p>We need the <code>Employee</code> table to store employee details like employee id, name, email, manager id, salary, and status.</p>
+
+  <h3>Example</h3>
+  <pre>CREATE TABLE Employee
+(
+    EmpId Varchar(10) Primary Key,
+    Fullname Varchar(100),
+    EmailId Varchar(100) Unique,
+    ManagerId Varchar(10),
+    Salary Decimal,
+    Status Int
+);</pre>
+
+  <h3>Column Explanation</h3>
+  <table>
+    <tr><th>Column</th><th>Meaning</th></tr>
+    <tr><td>EmpId</td><td>Employee id. It is the primary key, so every employee must have a unique id.</td></tr>
+    <tr><td>Fullname</td><td>Employee full name.</td></tr>
+    <tr><td>EmailId</td><td>Employee email. It is unique, so two employees cannot have the same email.</td></tr>
+    <tr><td>ManagerId</td><td>The employee id of the manager. It can be null for top-level manager.</td></tr>
+    <tr><td>Salary</td><td>Employee salary.</td></tr>
+    <tr><td>Status</td><td>Usually used to show active or inactive. Here, 1 means active.</td></tr>
+  </table>
+</div>
+
+<h2>5. Primary Key And Unique Key</h2>
+
+<div class="concept">
+  <h3>Definition</h3>
+  <p>A <strong>primary key</strong> uniquely identifies each row in a table. A <strong>unique key</strong> also prevents duplicate values in a column.</p>
+
+  <h3>Why We Use It</h3>
+  <p>We use keys to keep data clean. For example, two employees should not have the same <code>EmpId</code>, and two employees should not use the same email id.</p>
+
+  <h3>Example From Employee Table</h3>
+  <pre>EmpId Varchar(10) Primary Key,
+EmailId Varchar(100) Unique</pre>
+
+  <h3>Explanation</h3>
+  <ul>
+    <li><code>Primary Key</code> does not allow duplicate values.</li>
+    <li><code>Primary Key</code> does not allow null values.</li>
+    <li><code>Unique</code> does not allow duplicate values.</li>
+    <li>A table can have only one primary key, but it can have multiple unique keys.</li>
+  </ul>
+</div>
+
+<h2>6. Insert Data</h2>
+
+<div class="concept">
+  <h3>Definition</h3>
+  <p><code>INSERT INTO</code> adds new rows into a table.</p>
+
+  <h3>Why We Use It</h3>
+  <p>After creating a table, it is empty. We insert sample data so we can practice queries.</p>
+
+  <h3>Example</h3>
+  <pre>INSERT INTO Employee VALUES
+('EMP101', 'chakrapani u', 'chakri@test.com', NULL, 10000, 1),
+('EMP103', 'shraddha u', 'shraddha@test.com', 'EMP101', 10000, 1),
+('EMP104', 'shreshta u', 'shreshta@test.com', 'EMP103', 10000, 1),
+('EMP105', 'swapna y v', 'swapna@test.com', 'EMP106', 20000, 1),
+('EMP106', 'harshitha k h', 'harshitha@test.com', 'EMP104', 25000, 1);</pre>
+
+  <h3>Explanation</h3>
+  <p>Each bracket group is one employee row. For <code>EMP101</code>, manager id is <code>NULL</code>, which means that employee does not have a manager in this table.</p>
+</div>
+
+<h2>7. SELECT Query</h2>
+
+<div class="concept">
+  <h3>Definition</h3>
+  <p><code>SELECT</code> is used to read data from a table.</p>
+
+  <h3>Why We Use It</h3>
+  <p>We use it when we want to see all rows or specific columns from a table.</p>
+
+  <h3>Example</h3>
+  <pre>SELECT * FROM Employee;</pre>
+
+  <h3>Explanation</h3>
+  <p><code>*</code> means all columns. This query shows every row and every column from the <code>Employee</code> table.</p>
+</div>
+
+<h2>8. Self Join: Employee And Manager In Same Table</h2>
+
+<div class="concept">
+  <h3>Definition</h3>
+  <p>A self join means joining a table with itself. We use the same table two times with different names.</p>
+
+  <h3>Why We Use It</h3>
+  <p>In the <code>Employee</code> table, employee and manager are both employees. Manager details are also stored in the same table. So we join <code>Employee</code> with <code>Employee</code>.</p>
+
+  <h3>Example</h3>
+  <pre>SELECT
+    e.EmpId,
+    e.Fullname,
+    e.EmailId,
+    e.Salary,
+    m.EmpId AS ManagerId,
+    m.Fullname AS ManagerName
+FROM Employee e
+LEFT JOIN Employee m
+    ON e.ManagerId = m.EmpId;</pre>
+
+  <h3>Explanation</h3>
+  <ul>
+    <li><code>e</code> means employee.</li>
+    <li><code>m</code> means manager.</li>
+    <li><code>e.ManagerId = m.EmpId</code> connects employee to manager.</li>
+    <li><code>LEFT JOIN</code> keeps all employees, even if manager details are not found.</li>
+  </ul>
+
+  <h3>Simple Example</h3>
+  <p>If Shraddha's <code>ManagerId</code> is <code>EMP101</code>, SQL Server looks for employee <code>EMP101</code> and shows that person's name as Shraddha's manager.</p>
+</div>
+
+<h2>9. LEFT JOIN</h2>
+
+<div class="concept">
+  <h3>Definition</h3>
+  <p><code>LEFT JOIN</code> returns all rows from the left table and matching rows from the right table.</p>
+
+  <h3>Why We Use It Here</h3>
+  <p>Some employees may not have a manager. If we use inner join, those employees may disappear from the result. With left join, they still appear.</p>
+
+  <h3>What Happens</h3>
+  <p>If manager is found, manager details are shown. If manager is not found, manager columns show <code>NULL</code>.</p>
+</div>
+
+<div class="page-break"></div>
+
+<h2>10. Window Functions</h2>
+
+<div class="concept">
+  <h3>Definition</h3>
+  <p>Window functions calculate a value across rows while still keeping each row visible. They do not group rows into one row like normal aggregate queries.</p>
+
+  <h3>Why We Use Them</h3>
+  <p>We use window functions when we want serial numbers, ranking, top salary, second highest salary, or row-wise calculations.</p>
+
+  <h3>Important Syntax</h3>
+  <pre>FUNCTION_NAME() OVER (ORDER BY column_name)</pre>
+
+  <h3>Explanation</h3>
+  <p><code>OVER</code> tells SQL Server how to arrange or divide rows before applying the window function.</p>
+</div>
+
+<h2>11. ROW_NUMBER()</h2>
+
+<div class="concept">
+  <h3>Definition</h3>
+  <p><code>ROW_NUMBER()</code> gives a unique running number to each row.</p>
+
+  <h3>Why We Use It</h3>
+  <p>We use it when we need a serial number or when we want to identify duplicate rows.</p>
+
+  <h3>Example</h3>
+  <pre>SELECT ROW_NUMBER() OVER (ORDER BY EmpId) AS Sno, *
+FROM Employee;</pre>
+
+  <h3>Explanation</h3>
+  <p>Rows are ordered by <code>EmpId</code>. SQL Server then gives serial numbers: 1, 2, 3, 4, 5.</p>
+
+  <h3>Important Point</h3>
+  <p><code>ROW_NUMBER()</code> never gives the same number to two rows, even if salary or other values are the same.</p>
+</div>
+
+<h2>12. RANK()</h2>
+
+<div class="concept">
+  <h3>Definition</h3>
+  <p><code>RANK()</code> gives rank based on the order. If duplicate values exist, it gives the same rank and skips the next rank number.</p>
+
+  <h3>Why We Use It</h3>
+  <p>We use <code>RANK()</code> when we want competition-style ranking.</p>
+
+  <h3>Example</h3>
+  <pre>SELECT RANK() OVER (ORDER BY Salary) AS Rank, *
+FROM Employee;</pre>
+
+  <h3>Explanation</h3>
+  <p>If three employees have salary 10000, all three get the same rank. The next rank is skipped based on how many rows already used that rank.</p>
+
+  <h3>Simple Ranking Example</h3>
+  <table>
+    <tr><th>Salary</th><th>RANK()</th></tr>
+    <tr><td>10000</td><td>1</td></tr>
+    <tr><td>10000</td><td>1</td></tr>
+    <tr><td>10000</td><td>1</td></tr>
+    <tr><td>20000</td><td>4</td></tr>
+    <tr><td>25000</td><td>5</td></tr>
+  </table>
+</div>
+
+<h2>13. DENSE_RANK()</h2>
+
+<div class="concept">
+  <h3>Definition</h3>
+  <p><code>DENSE_RANK()</code> gives the same rank for duplicate values, but it does not skip rank numbers.</p>
+
+  <h3>Why We Use It</h3>
+  <p>We use it when we want clean ranking without gaps. It is useful for finding highest salary, second highest salary, third highest salary, and so on.</p>
+
+  <h3>Example</h3>
+  <pre>SELECT DENSE_RANK() OVER (ORDER BY Salary DESC) AS Rank, *
+FROM Employee;</pre>
+
+  <h3>Explanation</h3>
+  <p><code>ORDER BY Salary DESC</code> means highest salary comes first. The highest salary gets rank 1.</p>
+
+  <h3>Simple Ranking Example</h3>
+  <table>
+    <tr><th>Salary</th><th>DENSE_RANK()</th></tr>
+    <tr><td>25000</td><td>1</td></tr>
+    <tr><td>20000</td><td>2</td></tr>
+    <tr><td>10000</td><td>3</td></tr>
+    <tr><td>10000</td><td>3</td></tr>
+    <tr><td>10000</td><td>3</td></tr>
+  </table>
+</div>
+
+<h2>14. Difference Between ROW_NUMBER, RANK, And DENSE_RANK</h2>
+
+<table>
+  <tr><th>Function</th><th>Duplicate values</th><th>Skips rank?</th><th>Best use</th></tr>
+  <tr><td>ROW_NUMBER()</td><td>Gives different numbers</td><td>No</td><td>Serial number, duplicate deletion</td></tr>
+  <tr><td>RANK()</td><td>Same rank for duplicates</td><td>Yes</td><td>Competition ranking</td></tr>
+  <tr><td>DENSE_RANK()</td><td>Same rank for duplicates</td><td>No</td><td>Top salary, second highest salary</td></tr>
+</table>
+
+<h2>15. CTE: Common Table Expression</h2>
+
+<div class="concept">
+  <h3>Definition</h3>
+  <p>CTE means Common Table Expression. It is a temporary named result set used inside one query.</p>
+
+  <h3>Why We Use It</h3>
+  <p>We use CTE to make complex queries easier to read. In your script, CTE is used to calculate rank first, then filter by rank.</p>
+
+  <h3>Example</h3>
+  <pre>;WITH cte_sal_data AS
+(
+    SELECT DENSE_RANK() OVER (ORDER BY Salary DESC) AS Rank, *
+    FROM Employee
+)
+SELECT *
+FROM cte_sal_data
+WHERE Rank = 1;</pre>
+
+  <h3>Explanation</h3>
+  <ul>
+    <li>The CTE name is <code>cte_sal_data</code>.</li>
+    <li>Inside the CTE, employees are ranked by salary.</li>
+    <li>Outside the CTE, we select only <code>Rank = 1</code>.</li>
+    <li>This gives the employee or employees with the highest salary.</li>
+  </ul>
+
+  <div class="note">
+    The semicolon before <code>WITH</code> is used because SQL Server expects the previous statement to be ended before starting a CTE.
+  </div>
+</div>
+
+<h2>16. Bonus Table And Identity Column</h2>
+
+<div class="concept">
+  <h3>Definition</h3>
+  <p><code>IDENTITY(1,1)</code> automatically generates numbers. The first value is 1, and it increases by 1 for each new row.</p>
+
+  <h3>Why We Use It</h3>
+  <p>We use identity columns when we do not want to manually type ids.</p>
+
+  <h3>Example</h3>
+  <pre>CREATE TABLE Bonus
+(
+    BonusId Int Primary Key Identity(1,1),
+    Item Varchar(100),
+    Status Int
+);
+
+INSERT INTO Bonus VALUES
+('Smart Watch', 1),
+('Sweet Box', 1);</pre>
+
+  <h3>Explanation</h3>
+  <p>You insert only <code>Item</code> and <code>Status</code>. SQL Server automatically fills <code>BonusId</code> as 1, 2, and so on.</p>
+</div>
+
+<h2>17. CROSS JOIN And Cartesian Product</h2>
+
+<div class="concept">
+  <h3>Definition</h3>
+  <p><code>CROSS JOIN</code> combines every row from the first table with every row from the second table. This is called a Cartesian product.</p>
+
+  <h3>Why We Use It</h3>
+  <p>We use cross join when we want all possible combinations.</p>
+
+  <h3>Example</h3>
+  <pre>SELECT
+    e.EmpId,
+    e.Fullname,
+    e.EmailId,
+    b.Item
+FROM Employee e
+CROSS JOIN Bonus b
+ORDER BY e.Fullname;</pre>
+
+  <h3>Explanation</h3>
+  <p>If there are 5 employees and 2 bonus items, the result will have 10 rows. Each employee is matched with each bonus item.</p>
+
+  <h3>Formula</h3>
+  <pre>Total rows = number of Employee rows * number of Bonus rows
+Total rows = 5 * 2 = 10</pre>
+
+  <div class="note">
+    Be careful with cross join. If one table has 1,000 rows and another table has 1,000 rows, the result will be 1,000,000 rows.
+  </div>
+</div>
+
+<div class="page-break"></div>
+
+<h2>18. Duplicate Records In Books Table</h2>
+
+<div class="concept">
+  <h3>Definition</h3>
+  <p>Duplicate records means the same data appears more than once. In the <code>books</code> table, the same <code>bookname</code> and <code>author</code> appear multiple times.</p>
+
+  <h3>Why We Remove Duplicates</h3>
+  <p>Duplicate data creates confusion. It can make reports and counts wrong.</p>
+
+  <h3>Example Table</h3>
+  <pre>CREATE TABLE books
+(
+    bookid Int Primary Key Identity(1,1),
+    bookname Varchar(100),
+    author Varchar(100)
+);</pre>
+
+  <h3>Sample Duplicate Data</h3>
+  <pre>INSERT INTO books VALUES
+('programming', 'john cena'),
+('programming', 'john cena'),
+('programming', 'john cena'),
+('lazy life', 'nelson v'),
+('internet spark', 'mitchel g'),
+('internet spark', 'mitchel g'),
+('cooking my life', 'harshitha'),
+('no mens world', 'william smith'),
+('no mens world', 'william smith');</pre>
+</div>
+
+<h2>19. PARTITION BY</h2>
+
+<div class="concept">
+  <h3>Definition</h3>
+  <p><code>PARTITION BY</code> divides rows into groups for a window function.</p>
+
+  <h3>Why We Use It</h3>
+  <p>To find duplicate books, we group rows by <code>bookname</code> and <code>author</code>. Inside each group, we give row numbers.</p>
+
+  <h3>Example</h3>
+  <pre>SELECT ROW_NUMBER() OVER
+(
+    PARTITION BY bookname, author
+    ORDER BY BookId
+) AS Sno, *
+FROM books;</pre>
+
+  <h3>Explanation</h3>
+  <p>If the same book and author appear 3 times, they are treated as one group. The first row gets <code>Sno = 1</code>, second gets <code>Sno = 2</code>, third gets <code>Sno = 3</code>.</p>
+</div>
+
+<h2>20. Remove Duplicate Records Using CTE</h2>
+
+<div class="concept">
+  <h3>Definition</h3>
+  <p>We can remove duplicates by keeping the first row and deleting the remaining duplicate rows.</p>
+
+  <h3>Why We Use CTE Here</h3>
+  <p>The CTE makes it easy to first mark duplicates using row number and then delete rows where row number is greater than 1.</p>
+
+  <h3>Example</h3>
+  <pre>;WITH cte_dup_books AS
+(
+    SELECT ROW_NUMBER() OVER
+    (
+        PARTITION BY bookname, author
+        ORDER BY BookId
+    ) AS Sno, *
+    FROM books
+)
+DELETE FROM cte_dup_books
+WHERE Sno &gt; 1;</pre>
+
+  <h3>Explanation</h3>
+  <ul>
+    <li><code>Sno = 1</code> means first copy. We keep it.</li>
+    <li><code>Sno &gt; 1</code> means duplicate copy. We delete it.</li>
+    <li>After delete, only one record remains for each book and author combination.</li>
+  </ul>
+
+  <div class="note">
+    In real work, always run the SELECT version first before DELETE, so you can see what will be deleted.
+  </div>
+</div>
+
+<h2>21. Index In SQL Server</h2>
+
+<div class="concept">
+  <h3>Definition</h3>
+  <p>An index helps SQL Server find data faster. It is like the index page or table of contents in a book.</p>
+
+  <h3>Why We Use It</h3>
+  <p>Without an index, SQL Server may scan the whole table to find matching rows. With a good index, SQL Server can go directly to the matching data faster.</p>
+
+  <h3>Simple Example</h3>
+  <p>If you want to find "Bangalore" in a city table, SQL Server can search faster if there is an index on <code>cityname</code>.</p>
+</div>
+
+<h2>22. Clustered Index</h2>
+
+<div class="concept">
+  <h3>Definition</h3>
+  <p>A clustered index decides the physical order of data rows in a table.</p>
+
+  <h3>Why We Use It</h3>
+  <p>It helps SQL Server find rows faster when searching by the clustered key.</p>
+
+  <h3>Important Points</h3>
+  <ul>
+    <li>Only one clustered index is allowed for a table.</li>
+    <li>A primary key usually creates a clustered index by default.</li>
+    <li>The real table data is organized based on the clustered index.</li>
+  </ul>
+
+  <h3>Example</h3>
+  <pre>CREATE TABLE city1
+(
+    cityid Int Primary Key,
+    cityname Varchar(10)
+);</pre>
+
+  <h3>Explanation</h3>
+  <p>Here <code>cityid</code> is primary key. SQL Server usually creates a clustered index on it unless told otherwise.</p>
+</div>
+
+<h2>23. Heap Table: Table Without Clustered Index</h2>
+
+<div class="concept">
+  <h3>Definition</h3>
+  <p>A heap table is a table without a clustered index.</p>
+
+  <h3>Why It Matters</h3>
+  <p>When there is no useful index, SQL Server may need to scan the whole table to find data.</p>
+
+  <h3>Example</h3>
+  <pre>CREATE TABLE city
+(
+    cityid Int,
+    cityname Varchar(10)
+);</pre>
+
+  <h3>Explanation</h3>
+  <p>This table has no primary key and no clustered index. So the data is not organized by a clustered key.</p>
+</div>
+
+<h2>24. Nonclustered Index</h2>
+
+<div class="concept">
+  <h3>Definition</h3>
+  <p>A nonclustered index is a separate structure that points to the actual table rows.</p>
+
+  <h3>Why We Use It</h3>
+  <p>We use it to speed up searches on columns that are used often in <code>WHERE</code>, <code>JOIN</code>, or <code>ORDER BY</code>.</p>
+
+  <h3>Example</h3>
+  <pre>CREATE NONCLUSTERED INDEX cl_city_index
+ON City1(cityname);</pre>
+
+  <h3>Explanation</h3>
+  <p>This creates a nonclustered index on <code>cityname</code>. Now searching by city name can become faster.</p>
+</div>
+
+<h2>25. Table Scan Vs Index Seek</h2>
+
+<div class="concept">
+  <h3>Definition</h3>
+  <p>A table scan means SQL Server reads many rows or the full table. An index seek means SQL Server uses an index to directly find the matching rows.</p>
+
+  <h3>Why It Matters</h3>
+  <p>Index seek is usually faster for searching specific values, especially when the table has many rows.</p>
+
+  <h3>Example Without Useful Index</h3>
+  <pre>SELECT *
+FROM city
+WHERE cityname = 'bangalore';</pre>
+
+  <h3>Example With Nonclustered Index</h3>
+  <pre>SELECT *
+FROM city1
+WHERE cityname = 'bangalore';</pre>
+
+  <h3>Explanation</h3>
+  <p>The <code>city</code> table has no index on city name, so SQL Server may scan the table. The <code>city1</code> table has a nonclustered index on city name, so SQL Server can use the index to search faster.</p>
+</div>
+
+<h2>26. SET STATISTICS TIME</h2>
+
+<div class="concept">
+  <h3>Definition</h3>
+  <p><code>SET STATISTICS TIME ON</code> shows how much CPU time and elapsed time SQL Server used for a query.</p>
+
+  <h3>Why We Use It</h3>
+  <p>We use it to compare query performance. For example, we can compare a table scan query and an indexed query.</p>
+
+  <h3>Example</h3>
+  <pre>SET STATISTICS TIME ON;
+
+SELECT *
+FROM city1
+WHERE cityname = 'bangalore';
+
+SET STATISTICS TIME OFF;</pre>
+
+  <h3>Explanation</h3>
+  <p>After running the query, SQL Server shows timing information in the Messages tab in SSMS. Lower time usually means better performance.</p>
+</div>
+
+<h2>27. Full Practice Script</h2>
+<p>You can run this script in SQL Server Management Studio. It creates the database, tables, sample data, joins, ranks, duplicates example, and index examples.</p>
+
+<pre>CREATE DATABASE MyLearningDB;
+GO
+
+USE MyLearningDB;
+GO
+
+IF OBJECT_ID('dbo.Employee', 'U') IS NOT NULL
+BEGIN
+    DROP TABLE Employee;
+END
+GO
+
+CREATE TABLE Employee
+(
+    EmpId Varchar(10) Primary Key,
+    Fullname Varchar(100),
+    EmailId Varchar(100) Unique,
+    ManagerId Varchar(10),
+    Salary Decimal,
+    Status Int
+);
+
+INSERT INTO Employee VALUES
+('EMP101','chakrapani u','chakri@test.com',NULL,10000,1),
+('EMP103','shraddha u','shraddha@test.com','EMP101',10000,1),
+('EMP104','shreshta u','shreshta@test.com','EMP103',10000,1),
+('EMP105','swapna y v','swapna@test.com','EMP106',20000,1),
+('EMP106','harshitha k h','harshitha@test.com','EMP104',25000,1);
+
+SELECT * FROM Employee;
+
+SELECT
+    e.EmpId,
+    e.Fullname,
+    e.EmailId,
+    e.Salary,
+    m.EmpId AS ManagerId,
+    m.Fullname AS ManagerName
+FROM Employee e
+LEFT JOIN Employee m
+    ON e.ManagerId = m.EmpId;
+
+SELECT ROW_NUMBER() OVER (ORDER BY EmpId) AS Sno, *
+FROM Employee;
+
+SELECT RANK() OVER (ORDER BY Salary) AS Rank, *
+FROM Employee;
+
+SELECT DENSE_RANK() OVER (ORDER BY Salary DESC) AS Rank, *
+FROM Employee;
+
+;WITH cte_sal_data AS
+(
+    SELECT DENSE_RANK() OVER (ORDER BY Salary DESC) AS Rank, *
+    FROM Employee
+)
+SELECT *
+FROM cte_sal_data
+WHERE Rank = 1;
+
+IF OBJECT_ID('dbo.Bonus', 'U') IS NOT NULL
+BEGIN
+    DROP TABLE Bonus;
+END
+GO
+
+CREATE TABLE Bonus
+(
+    BonusId Int Primary Key Identity(1,1),
+    Item Varchar(100),
+    Status Int
+);
+
+INSERT INTO Bonus VALUES
+('Smart Watch',1),
+('Sweet Box',1);
+
+SELECT
+    e.EmpId,
+    e.Fullname,
+    e.EmailId,
+    b.Item
+FROM Employee e
+CROSS JOIN Bonus b
+ORDER BY e.Fullname;</pre>
+
+<h2>28. Interview And Viva Questions</h2>
+
+<table>
+  <tr><th>Question</th><th>Simple Answer</th></tr>
+  <tr><td>What is a primary key?</td><td>It uniquely identifies each row and does not allow null or duplicate values.</td></tr>
+  <tr><td>What is self join?</td><td>Joining a table with itself. Example: employee and manager from the same Employee table.</td></tr>
+  <tr><td>Why use LEFT JOIN?</td><td>To keep all rows from the left table even when there is no matching row in the right table.</td></tr>
+  <tr><td>Difference between RANK and DENSE_RANK?</td><td>Both give same rank for duplicate values. RANK skips numbers. DENSE_RANK does not skip numbers.</td></tr>
+  <tr><td>What is CTE?</td><td>A temporary named result used inside one query.</td></tr>
+  <tr><td>What is CROSS JOIN?</td><td>It creates all combinations between two tables.</td></tr>
+  <tr><td>What is an index?</td><td>A structure that helps SQL Server find rows faster.</td></tr>
+  <tr><td>Clustered vs nonclustered index?</td><td>Clustered organizes actual table data. Nonclustered is separate and points to data rows.</td></tr>
+  <tr><td>What is table scan?</td><td>SQL Server reads the table rows to find matching data.</td></tr>
+  <tr><td>What is index seek?</td><td>SQL Server uses an index to quickly find matching data.</td></tr>
+</table>
+
+<h2>29. Quick Revision Cheat Sheet</h2>
+
+<div class="box">
+  <strong>Database:</strong> Container for tables.<br>
+  <strong>Table:</strong> Stores data in rows and columns.<br>
+  <strong>Primary Key:</strong> Unique row identifier.<br>
+  <strong>Unique Key:</strong> Prevents duplicate values.<br>
+  <strong>Self Join:</strong> Same table joined with itself.<br>
+  <strong>ROW_NUMBER:</strong> Gives unique serial number.<br>
+  <strong>RANK:</strong> Same rank for duplicates, skips next rank.<br>
+  <strong>DENSE_RANK:</strong> Same rank for duplicates, no skipping.<br>
+  <strong>CTE:</strong> Temporary named query result.<br>
+  <strong>CROSS JOIN:</strong> All possible combinations.<br>
+  <strong>Index:</strong> Helps search faster.<br>
+  <strong>Table Scan:</strong> Reads table rows broadly.<br>
+  <strong>Index Seek:</strong> Uses index to find rows quickly.
+</div>
+
+<div class="footer">
+  SQL Server Queries - Simple Learning Guide. Created from your practice queries for beginner-friendly study.
+</div>
+
+</body>
+</html>
