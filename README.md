@@ -1,7 +1,5 @@
 # Agentic AI - Simple Guide for Everyone
 
-Simple spoken English. You do not need to be an engineer to understand this.
-
 This repo has two parts:
 
 1. `docs/AgenticAI-Simple-Guide.html` and `.pdf` - the beginner-friendly guide.
